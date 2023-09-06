@@ -29,8 +29,12 @@ def menu():
                    
 """)
 def main():
+
+    
     os.system(clean)
-    hoja = pd.read_excel('Hoja.xlsx',header=3)
+    hoja = pd.read_excel('Excel.xlsx',header=3)
+    print(hoja.columns)
+    """
     menu()
     try:
         opcion = int(input("Escribe el numero de tu opcion: "))
@@ -40,12 +44,17 @@ def main():
                 os.system(clean)
                 vendedores, dinero = generacion(hoja)
                 print(f"\n \n \n \n EL PROVEDOR QUE GENERA MAS ES {vendedores} Y GENERO {dinero}")
+            elif opcion == 2:
+                os.system()
+    
                 
     
     except:
         print("Selecciona una opcion valida")
+    
 
     generacion(hoja)
+    """
 
 #Quien genera mas
 #Que moneda es la mas usada
