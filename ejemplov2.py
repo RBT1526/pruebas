@@ -1,5 +1,6 @@
 import pandas as pd
 import os 
+import matplotlib.pyplot as plt
 
 
 
@@ -7,12 +8,20 @@ def generacion(hoja):
     ingresos = hoja["Invoice Amount USD"].tolist()
     vendedores = hoja["Vendor Name"].tolist()
     mayor = ingresos.index(max(ingresos))
+    plt.plot(ingresos)
+    plt.title('Provedores y generacion')
+    plt.show()
     return vendedores[mayor], ingresos[mayor]
 
 def moneda_mas(hoja):
     moneda = hoja["Invoice Currency"].tolist()
     mxn = moneda.count("MXN")
     usd = moneda.count("USD")
+    currency = [mxn, usd]
+    names = ["mxn", "usd"]
+    plt.bar(names,currency)
+    plt.title('Monedas')
+    plt.show()
     if mxn > usd:
         return mxn, "MXN"
     else:
@@ -29,22 +38,34 @@ def most_frequent(List):
             counter = curr_frequency
             num = i
  
-    return num
+    return num, counter
 
 def provedores(hoja):
     provedores = hoja["Vendor Name"].tolist()
-    repetido = most_frequent(provedores)
+    repetido, contador = most_frequent(provedores)
+    plt.bar(repetido, contador)
+    plt.title('Provedor mas repetido')
+    plt.show()
     return repetido
 
 
 def validacion(hoja):
     validacion = hoja["Validation Status"].tolist()
     cuenta = validacion.count("V")
+    cuenta_no = len(validacion) - cuenta
+    list_val = [cuenta, cuenta_no]
+    list_names = ["Validated", "Not Validated"]
+    plt.bar(list_names,list_val)
+    plt.title('Validacion de provedores')
+    plt.show()
     return cuenta
     
 def vendor_site(hoja):
     vendor = hoja["Vendor Site Code"].tolist()
-    most_checked = most_frequent(vendor)
+    most_checked, contador= most_frequent(vendor)
+    plt.bar(most_checked, contador)
+    plt.title('Vendor code site')
+    plt.show()
     return most_checked
 
 
@@ -73,6 +94,7 @@ def main():
     hoja = pd.read_excel('Excel.xlsx',header=3) 
     while True:
         os.system(clean)
+        plt.close()
         menu()
         try:
             opcion = int(input("Escribe el numero de tu opcion: "))
